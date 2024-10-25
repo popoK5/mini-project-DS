@@ -1,0 +1,147 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Define a structure for a contact
+struct Contact {
+    string name;
+    string phone;
+    Contact* next;
+};
+
+// Define a class for the contact management system
+class ContactManager {
+private:
+    Contact* head;
+
+public:
+    ContactManager() : head(nullptr) {}
+
+    // Function to add a contact
+    void addContact(const string& name, const string& phone) {
+        Contact* newContact = new Contact{name, phone, nullptr};
+        if (!head) {
+            head = newContact;
+        } else {
+            Contact* temp = head;
+            while (temp->next) {
+                temp = temp->next;
+            }
+            temp->next = newContact;
+        }
+        cout << "Contact added: " << name << endl;
+    }
+
+    // Function to display all contacts
+    void displayContacts() {
+        if (!head) {
+            cout << "No contacts available." << endl;
+            return;
+        }
+        Contact* temp = head;
+        while (temp) {
+            cout << "Name: " << temp->name << ", Phone: " << temp->phone << endl;
+            temp = temp->next;
+        }
+    }
+
+    // Function to search for a contact
+    void searchContact(const string& name) {
+        Contact* temp = head;
+        while (temp) {
+            if (temp->name == name) {
+                cout << "Contact found: " << name << ", Phone: " << temp->phone << endl;
+                return;
+            }
+            temp = temp->next;
+        }
+        cout << "Contact not found: " << name << endl;
+    }
+
+    // Function to delete a contact
+    void deleteContact(const string& name) {
+        if (!head) {
+            cout << "No contacts available to delete." << endl;
+            return;
+        }
+
+        if (head->name == name) {
+            Contact* toDelete = head;
+            head = head->next;
+            delete toDelete;
+            cout << "Contact deleted: " << name << endl;
+            return;
+        }
+
+        Contact* temp = head;
+        while (temp->next && temp->next->name != name) {
+            temp = temp->next;
+        }
+
+        if (temp->next) {
+            Contact* toDelete = temp->next;
+            temp->next = temp->next->next;
+            delete toDelete;
+            cout << "Contact deleted: " << name << endl;
+        } else {
+            cout << "Contact not found: " << name << endl;
+        }
+    }
+
+    ~ContactManager() {
+        while (head) {
+            Contact* temp = head;
+            head = head->next;
+            delete temp;
+        }
+    }
+};
+
+// Main function
+int main() {
+    ContactManager cm;
+    int choice;
+    string name, phone;
+
+    do {
+        cout << "\nContact Management System\n";
+        cout << "1. Add Contact\n";
+        cout << "2. Display Contacts\n";
+        cout << "3. Search Contact\n";
+        cout << "4. Delete Contact\n";
+        cout << "5. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter name: ";
+                cin >> name;
+                cout << "Enter phone number: ";
+                cin >> phone;
+                cm.addContact(name, phone);
+                break;
+            case 2:
+                cm.displayContacts();
+                break;
+            case 3:
+                cout << "Enter name to search: ";
+                cin >> name;
+                cm.searchContact(name);
+                break;
+            case 4:
+                cout << "Enter name to delete: ";
+                cin >> name;
+                cm.deleteContact(name);
+                break;
+            case 5:
+                cout << "Exiting program." << endl;
+                break;
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+        }
+    } while (choice != 5);
+
+    return 0;
+}
