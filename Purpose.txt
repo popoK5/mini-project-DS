@@ -1,0 +1,38 @@
+Purpose
+The system allows users to:
+
+Add new contacts (with a name and phone number).
+Display all contacts.
+Search for a specific contact by name.
+Delete a contact.
+How It Works
+Data Structure:
+
+The program uses a singly linked list to store contacts. Each contact is represented by a Contact structure, which contains:
+name: The name of the contact.
+phone: The phone number.
+next: A pointer to the next contact in the list.
+ContactManager Class:
+
+This class manages the linked list of contacts. It has methods for adding, displaying, searching, and deleting contacts.
+Key Functions:
+
+addContact: Creates a new contact and adds it to the end of the list.
+displayContacts: Loops through the list and prints out each contact's name and phone number.
+searchContact: Looks for a contact by name and displays their phone number if found.
+deleteContact: Removes a contact from the list by name.
+Main Function:
+
+This is where the program runs. It presents a menu to the user to choose what action to take:
+The user can enter a number (1-5) to add, display, search, delete contacts, or exit.
+Based on the user’s choice, the corresponding function in the ContactManager class is called.
+Example of Use
+When a user wants to add a contact, they select option 1, enter the name and phone number, and the program adds it to the list.
+If they want to see all contacts, they select option 2, and the program displays the list.
+To find a contact, they enter option 3 and type in the name.
+If they need to remove a contact, they select option 4 and provide the name to delete it.
+Summary
+Overall, this program is a straightforward way to manage contacts using linked lists, showcasing basic operations like adding, searching, and deleting entries. It helps demonstrate fundamental concepts in C++ like structures, pointers, and dynamic memory management.
+
+
+
